@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 // app.get("/api/v1/user", userRoutes);
-app.use("/api/v1/user", userRoutes); //get to pore use korteci tai use use kora lgbe 
+app.use("/api/v1/user", userRoutes); //get to pore use korteci tai use keyword use kora lgbe aita base url hishebe kaj korbe
 
 export default app;
 
