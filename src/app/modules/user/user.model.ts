@@ -2,11 +2,13 @@
   // note: interface type small letter hobe first letter jeikhane schema te capital letter
   //following schema types from mongoose docs
 
-import { Schema, model } from "mongoose";
-import { IUser } from "./user.interface";
+import { Model, Schema, model } from "mongoose";
+import { IUser, IUserMethods, UserModel } from "./user.interface";
+
+// type UserModel = Model<IUser, {}, IUserMethods>; //Static and methods er jonno interface lagce by following docs tai type ar lagbe nah
 
   // 2. Create a Schema corresponding to the document interface.
-  const userSchema = new Schema<IUser>({
+  const userSchema = new Schema<IUser, UserModel , IUserMethods>({ //ai 3 ta jinish onekta mukhosto follow mongoose docs -> typescript ->Statics
     id: {
       type: String,
       required: true,
@@ -62,7 +64,23 @@ import { IUser } from "./user.interface";
     },
   });
 
+
+  //class-> this. --> class k pacci
+  userSchema.static('getAdminUsers', async function getAdminUsers() {
+    const admins = await this.find({role: "admin"})
+  });
+
+  userSchema.method('fullName', function fullName() {
+    return this.name.firstName+ ' ' + this.name.lastName; //this use korle must normal function lagbe
+  });
+  
+
   //model
-  const User = model<IUser>("User", userSchema);
+  // const User = model<IUser, UserModel>('User', schema);
+  const User = model<IUser, UserModel>("User", userSchema);
 
   export default User;
+
+//instance methods -> instance er method
+//class -> instance + method => instance methods
+

@@ -17,7 +17,7 @@ app.use("/api/v1/user", userRoutes); //get to pore use korteci tai use keyword u
 
 export default app;
 
-
+//router-> controller ->service->model
 /* breakdown ...
 Interface, Interface => interface.ts
 Schema, Model-> model.ts

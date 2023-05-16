@@ -1,3 +1,5 @@
+import { HydratedDocument, Model } from "mongoose";
+
  //creating an interface
  export interface IUser {
     id: string;
@@ -15,3 +17,17 @@
     emergencyContactNo: string;
     permanentAddress: string;
   }
+  // statistic by following docs typescript -> statistics
+  // interface UserModel extends Model<IUser> {
+  //   getAdminUsers(): IUser[];
+  // }
+
+  //custom instance mehtod following mongoose docs => mongoose docs -> typescript
+  export interface IUserMethods {
+    fullName(): string;
+  }
+
+  export interface UserModel extends Model<IUser, {}, IUserMethods> {
+    getAdminUsers(): Promise<HydratedDocument<IUser, IUserMethods>>;
+  }
+  
